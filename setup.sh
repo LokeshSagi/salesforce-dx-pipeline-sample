@@ -13,11 +13,9 @@ set -o nounset    # fail on unset variables
 # Create a unique var to append
 TICKS=$(echo $(date +%s | cut -b1-13))
 
-# Name of your team (optional)
-HEROKU_TEAM_NAME="appcloud-dev"
 
 # Descriptive name for the Heroku app
-HEROKU_APP_NAME="MyLightningApp"
+HEROKU_APP_NAME="sagi20190519"
 
 # Name of the Heroku apps you'll use
 HEROKU_DEV_APP_NAME="dev$TICKS"
@@ -37,7 +35,7 @@ PROD_USERNAME="ProdOrg"
 GITHUB_REPO="wadewegner/salesforce-dx-pipeline-sample"
 
 # Your package name
-PACKAGE_NAME="PipelineSamplePackage2"
+PACKAGE_NAME="SamplePackage"
 
 ### Setup script
 
