@@ -89,7 +89,7 @@ heroku config:set SFDX_BUILDPACK_DEBUG=true -a $HEROKU_STAGING_APP_NAME
 heroku config:set SFDX_BUILDPACK_DEBUG=true -a $HEROKU_PROD_APP_NAME
 
 # Setup sfdxUrl's for Dev Hub auth
-devHubSfdxAuthUrl=$(sfdx force:org:display --verbose -u $DEV_HUB_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
+devHubSfdxAuthUrl="force://PlatformCLI::5Aep861dlMxAL.LhVReG3rmmvOBzHtFo3wHBpF5svdM9rJpXLJpaVb9b9znakeybmOIjssyDkIxZC.GEUdnVU9H@incredible-astro-153026.my.salesforce.com"
 if [[ "$devHubSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
   heroku config:set SFDX_DEV_HUB_AUTH_URL=$devHubSfdxAuthUrl -a $HEROKU_DEV_APP_NAME
   heroku config:set SFDX_DEV_HUB_AUTH_URL=$devHubSfdxAuthUrl -a $HEROKU_STAGING_APP_NAME
@@ -102,7 +102,7 @@ else
 fi
 
 # Setup sfdxUrl for Dev Org auth
-devSfdxAuthUrl=$(sfdx force:org:display --verbose -u $DEV_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
+devSfdxAuthUrl="force://PlatformCLI::5Aep861EvNzkxAlxVNKAzSbGN2VSg7cunEEOcLIp8KDcGUDjJKRGG_xb7w1lGOwzyvokWOsrwtYdFJGnq8rPOQK@efficiency-ability-7641-dev-ed.cs73.my.salesforce.com/"
 if [[ "$devSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
   heroku config:set SFDX_AUTH_URL=$devSfdxAuthUrl -a $HEROKU_DEV_APP_NAME
 else
@@ -113,7 +113,7 @@ else
 fi
 
 # Setup sfdxUrl for Staging Org auth
-stagingSfdxAuthUrl=$(sfdx force:org:display --verbose -u $STAGING_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
+stagingSfdxAuthUrl="force://PlatformCLI::5Aep861EvNzkxAlxVOxnF_wPeV6XzhrjokQ3dOM3tTGDK54nUwPgkPDX_aC2fvPhFArsR3S4wWpew5Bt_HbNfPm@ruby-saas-3142-dev-ed.cs73.my.salesforce.com/"
 if [[ "$stagingSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
   heroku config:set SFDX_AUTH_URL=$stagingSfdxAuthUrl -a $HEROKU_STAGING_APP_NAME
 else
@@ -124,7 +124,7 @@ else
 fi
 
 # Setup sfdxUrl for Prod Org auth
-prodSfdxAuthUrl=$(sfdx force:org:display --verbose -u $PROD_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
+prodSfdxAuthUrl="force://PlatformCLI::5Aep861Py1mmUCbH67GmQ7W79OeDjzC11RB.1NvdehZWivN5azd1I1fzWmqmEbXe2vZGudY9fc_QYIce5h9Ay4_@energy-saas-3299-dev-ed.cs6.my.salesforce.com/"
 if [[ "$prodSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
   heroku config:set SFDX_AUTH_URL=$prodSfdxAuthUrl -a $HEROKU_PROD_APP_NAME
 else
