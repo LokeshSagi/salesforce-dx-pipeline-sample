@@ -29,6 +29,8 @@ DEV_USERNAME="DevOrg"
 STAGING_USERNAME="TestOrg"
 PROD_USERNAME="ProdOrg"
 
+REG_EX_STRING = "^force://.*\.salesforce\.com$"
+
 # Your package name from force:package:list
 PACKAGE_NAME="SamplePackage"
 
@@ -90,6 +92,7 @@ heroku config:set SFDX_BUILDPACK_DEBUG=true -a $HEROKU_PROD_APP_NAME
 
 # Setup sfdxUrl's for Dev Hub auth
 devHubSfdxAuthUrl=$(sfdx force:org:display --verbose -u $DEV_HUB_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
+echo "value coming for url===> $devHubSfdxAuthUrl"
 if [[ "$devHubSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
   heroku config:set SFDX_DEV_HUB_AUTH_URL=$devHubSfdxAuthUrl -a $HEROKU_DEV_APP_NAME
   heroku config:set SFDX_DEV_HUB_AUTH_URL=$devHubSfdxAuthUrl -a $HEROKU_STAGING_APP_NAME
@@ -103,7 +106,8 @@ fi
 
 # Setup sfdxUrl for Dev Org auth
 devSfdxAuthUrl=$(sfdx force:org:display --verbose -u $DEV_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
-if [[ "$devSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
+
+if [[ $devSfdxAuthUrl =~ $REG_EX_STRING ]]; then
   heroku config:set SFDX_AUTH_URL=$devSfdxAuthUrl -a $HEROKU_DEV_APP_NAME
 else
   echo ""
@@ -114,7 +118,7 @@ fi
 
 # Setup sfdxUrl for Staging Org auth
 stagingSfdxAuthUrl=$(sfdx force:org:display --verbose -u $STAGING_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
-if [[ "$stagingSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
+if [[ $stagingSfdxAuthUrl =~ $REG_EX_STRING ]]; then
   heroku config:set SFDX_AUTH_URL=$stagingSfdxAuthUrl -a $HEROKU_STAGING_APP_NAME
 else
   echo ""
@@ -125,7 +129,7 @@ fi
 
 # Setup sfdxUrl for Prod Org auth
 prodSfdxAuthUrl=$(sfdx force:org:display --verbose -u $PROD_USERNAME | grep "Sfdx Auth Url" | awk '{ print $4 }')
-if [[ "$prodSfdxAuthUrl" =~ ^force://.*\.salesforce\.com$ ]]; then
+if [[ $prodSfdxAuthUrl =~ $REG_EX_STRING ]]; then
   heroku config:set SFDX_AUTH_URL=$prodSfdxAuthUrl -a $HEROKU_PROD_APP_NAME
 else
   echo ""
